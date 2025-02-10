@@ -17,6 +17,8 @@ $current_page = basename(dirname($_SERVER['PHP_SELF']));
     padding-top: 20px;
     color: white;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
 }
 .main-content {
     margin-left: var(--sidebar-width);
@@ -45,9 +47,6 @@ $current_page = basename(dirname($_SERVER['PHP_SELF']));
     padding: 15px 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
     margin-top: auto;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
     background-color: rgba(0,0,0,0.2);
 }
 .nav-section {
@@ -61,6 +60,22 @@ $current_page = basename(dirname($_SERVER['PHP_SELF']));
     text-transform: uppercase;
     color: rgba(255,255,255,0.5);
 }
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;     /* Hide scrollbar for Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar-content::-webkit-scrollbar {
+    display: none;
+}
+.logout-section {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 15px;
+}
 </style>
 
 <div class="sidebar">
@@ -68,63 +83,58 @@ $current_page = basename(dirname($_SERVER['PHP_SELF']));
         <i class="bi bi-box-seam"></i> NexInvent
     </div>
     
-    <div class="nav-section">
-        <div class="nav-header">Main Navigation</div>
-        <nav>
-            <a href="../index.php" class="sidebar-link <?php echo $current_page == 'modules' ? 'active' : ''; ?>">
-                <i class="bi bi-speedometer2 me-2"></i> Dashboard
-            </a>
-            <a href="../inventory/index.php" class="sidebar-link <?php echo $current_page == 'inventory' ? 'active' : ''; ?>">
-                <i class="bi bi-box-seam me-2"></i> Inventory
-            </a>
-            <a href="../products/index.php" class="sidebar-link <?php echo $current_page == 'products' ? 'active' : ''; ?>">
-                <i class="bi bi-cart3 me-2"></i> Products
-            </a>
-            <a href="../sales/index.php" class="sidebar-link <?php echo $current_page == 'sales' ? 'active' : ''; ?>">
-                <i class="bi bi-graph-up me-2"></i> Sales
-            </a>
-            <a href="../purchases/index.php" class="sidebar-link <?php echo $current_page == 'purchases' ? 'active' : ''; ?>">
-                <i class="bi bi-bag me-2"></i> Purchases
-            </a>
-        </nav>
-    </div>
-
-    <div class="nav-section">
-        <div class="nav-header">Management</div>
-        <nav>
-            <a href="../suppliers/index.php" class="sidebar-link <?php echo $current_page == 'suppliers' ? 'active' : ''; ?>">
-                <i class="bi bi-truck me-2"></i> Suppliers
-            </a>
-            <a href="../employees/index.php" class="sidebar-link <?php echo $current_page == 'employees' ? 'active' : ''; ?>">
-                <i class="bi bi-people me-2"></i> Employees
-            </a>
-            <a href="../payroll/index.php" class="sidebar-link <?php echo $current_page == 'payroll' ? 'active' : ''; ?>">
-                <i class="bi bi-cash-stack me-2"></i> Payroll
-            </a>
-        </nav>
-    </div>
-
-    <div class="nav-section">
-        <div class="nav-header">Reports & Settings</div>
-        <nav>
-            <a href="../reports/index.php" class="sidebar-link <?php echo $current_page == 'reports' ? 'active' : ''; ?>">
-                <i class="bi bi-file-earmark-text me-2"></i> Reports
-            </a>
-            <a href="../settings/index.php" class="sidebar-link <?php echo $current_page == 'settings' ? 'active' : ''; ?>">
-                <i class="bi bi-gear me-2"></i> Settings
-            </a>
-        </nav>
-    </div>
-
-    <div class="sidebar-user">
-        <div class="d-flex align-items-center">
-            <i class="bi bi-person-circle me-2"></i>
-            <div>
-                <small class="d-block text-muted">Logged in as</small>
-                <span><?php echo htmlspecialchars($_SESSION['username'] ?? 'User'); ?></span>
-            </div>
+    <div class="sidebar-content">
+        <div class="nav-section">
+            <div class="nav-header">Main Navigation</div>
+            <nav>
+                <a href="../index.php" class="sidebar-link <?php echo $current_page == 'modules' ? 'active' : ''; ?>">
+                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                </a>
+                <a href="../inventory/index.php" class="sidebar-link <?php echo $current_page == 'inventory' ? 'active' : ''; ?>">
+                    <i class="bi bi-box-seam me-2"></i> Inventory
+                </a>
+                <a href="../products/index.php" class="sidebar-link <?php echo $current_page == 'products' ? 'active' : ''; ?>">
+                    <i class="bi bi-cart3 me-2"></i> Products
+                </a>
+                <a href="../sales/index.php" class="sidebar-link <?php echo $current_page == 'sales' ? 'active' : ''; ?>">
+                    <i class="bi bi-graph-up me-2"></i> Sales
+                </a>
+                <a href="../purchases/index.php" class="sidebar-link <?php echo $current_page == 'purchases' ? 'active' : ''; ?>">
+                    <i class="bi bi-bag me-2"></i> Purchases
+                </a>
+            </nav>
         </div>
-        <a href="../../login/logout.php" class="btn btn-outline-light btn-sm mt-2 w-100">
+
+        <div class="nav-section">
+            <div class="nav-header">Management</div>
+            <nav>
+                <a href="../suppliers/index.php" class="sidebar-link <?php echo $current_page == 'suppliers' ? 'active' : ''; ?>">
+                    <i class="bi bi-truck me-2"></i> Suppliers
+                </a>
+                <a href="../employees/index.php" class="sidebar-link <?php echo $current_page == 'employees' ? 'active' : ''; ?>">
+                    <i class="bi bi-people me-2"></i> Employees
+                </a>
+                <a href="../payroll/index.php" class="sidebar-link <?php echo $current_page == 'payroll' ? 'active' : ''; ?>">
+                    <i class="bi bi-cash-stack me-2"></i> Payroll
+                </a>
+            </nav>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-header">Reports & Settings</div>
+            <nav>
+                <a href="../reports/index.php" class="sidebar-link <?php echo $current_page == 'reports' ? 'active' : ''; ?>">
+                    <i class="bi bi-file-earmark-text me-2"></i> Reports
+                </a>
+                <a href="../settings/index.php" class="sidebar-link <?php echo $current_page == 'settings' ? 'active' : ''; ?>">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <div class="logout-section">
+        <a href="../../login/logout.php" class="btn btn-outline-light w-100">
             <i class="bi bi-box-arrow-right"></i> Logout
         </a>
     </div>

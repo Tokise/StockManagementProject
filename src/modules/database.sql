@@ -104,7 +104,12 @@ CREATE TABLE categories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by INT,
+    updated_by INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES users(user_id),
+    FOREIGN KEY (updated_by) REFERENCES users(user_id)
 );
 
 -- Products Table
@@ -261,8 +266,8 @@ CREATE TABLE attendance (
     attendance_id INT PRIMARY KEY AUTO_INCREMENT,
     employee_id INT,
     date DATE,
-    time_in TIMESTAMP,
-    time_out TIMESTAMP,
+    time_in TIMESTAMP NULL DEFAULT NULL,
+    time_out TIMESTAMP NULL DEFAULT NULL,
     status ENUM('present', 'absent', 'late') DEFAULT 'present',
     FOREIGN KEY (employee_id) REFERENCES employee_details(employee_id)
 );
